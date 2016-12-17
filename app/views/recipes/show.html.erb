@@ -1,0 +1,58 @@
+<div class="container">
+<h1><%= @recipe.title %></h1>
+<%= image_tag "/recipe_images/#{@recipe.image}", class: 'cover' %>
+
+<p><%= @recipe.caption %></p>
+<p>投稿者：<%= @recipe.user.name %></p>
+<table class="striped card">
+  <tr>
+    <thead>
+      <th data-field="id">材料</th>
+    </thed>
+  </tr>
+  <tbody>
+  <% @recipe.foods.each do |food| %>
+  <tr>
+    <td><%= food.content %></td>
+  </tr>
+  <% end %>
+</tbody>
+</table>
+
+<table class="striped card">
+  <tr>
+    <thead>
+      <th data-field="id">調理手順</th>
+    </thed>
+  </tr>
+  <tbody>
+    <% @recipe.ways.each do |way| %>
+    <tr>
+      <td><%= way.content %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<% if user_signed_in? %>
+<%= link_to 'つくれぽを書く', new_review_path, class: 'btn wave' %>
+<%= link_to 'Myフォルダに登録', fav_recipe_path(@recipe.id), method: :post, remote: true, class: 'btn wave' %>
+<% end %>
+
+<h4>つくれぽ一覧</h4>
+<% @recipe.reviews.each do |review| %>
+<div class="row">
+  <div class="col s12 m7">
+    <div class="card">
+      <div class="card-image">
+        <%= image_tag "/review_images/#{review.image}" %>
+        <!-- <span class="card-title">Card Title</span> -->
+      </div>
+      <div class="card-content">
+        <p><%= review.content %></p>
+        <p>投稿者：<%= review.user.name %></p>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>
+</div>

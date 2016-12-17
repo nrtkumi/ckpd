@@ -1,0 +1,38 @@
+<div class="container">
+<h1>新規レシピ作成</h1>
+
+<%= form_for @recipe do |f| %>
+タイトル
+<%= f.text_field :title %>
+説明
+<%= f.text_area :caption, class: 'materialize-textarea' %>
+画像
+<%= f.file_field :image %>
+<div class="foods">
+  <button class="btn wave" id="food-btn" type="button" name="button">+ 材料追加</button>
+  <input name="food0" type="text" placeholder="材料" />
+</div>
+
+<div class="ways">
+  <button class="btn wave" id="way-btn" type="button" name="button">+ 作り方追加</button>
+  <input name="way0" type="text" placeholder="作り方" />
+</div>
+
+<%= f.submit '新規作成', class: 'btn wave' %>
+
+<% end %>
+</div>
+
+<script>
+  var i = 1;
+  $('#food-btn').click(function () {
+    $('.foods').append("<input name=\"food" + i + "\" type=\"text\" placeholder=\"材料\">");
+    i += 1;
+  });
+
+  var j = 1;
+  $('#way-btn').click(function () {
+    $('.ways').append("<input name=\"way" + j + "\" type=\"text\" placeholder=\"作り方\">");
+    j += 1;
+  });
+</script>
